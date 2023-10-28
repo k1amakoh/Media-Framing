@@ -1,0 +1,48 @@
+---
+title: "Web Scraping"
+output: html_document
+date: "2023-10 - 2023 - 12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Load libraries
+```{r Load libraries}
+library(rvest)
+library(RSelenium)
+```
+#Create Scrape Function 
+```{r Scrape Function}
+# Define a function to scrape election stories from a given URL
+scrape_election_stories <- function(url) {
+  tryCatch({
+    # Read the HTML content of the page
+    page <- read_html(url)
+
+    # Extract election stories based on the HTML structure of the website
+    stories <- html_nodes(page, "div.election-story")  
+
+    # Print the election stories
+    cat(paste("Scraping election stories from", url, ":\n"))
+    cat(html_text(stories), sep = "\n")
+    cat("\n")
+  }, error = function(e) {
+    cat("An error occurred: ", e$message, "\n")
+  })
+}
+```
+#Define URLs
+```{r Define URLs}
+urls <- c(
+  "https://www.wsj.com/politics",
+  "https://www.nytimes.com/section/politics",
+  "https://nypost.com/politics"
+)
+```
+#Utilise Function
+```{r}
+for (url in urls) {
+  scrape_election_stories(url)
+}
+```
