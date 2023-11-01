@@ -1,0 +1,92 @@
+# Create Visualizations
+function create_visualizations(validation_results):
+    # Retrieve data for creating visualizations
+    topic_evolution_data = validation_results["topic_evolution_data"]
+    topic_similarity_matrix = validation_results["topic_similarity_matrix"]
+
+    # Create a directory to save generated visualizations
+    create_directory("visualizations")
+
+    # Create line charts for topic evolution over time - Graph 1
+    for topic_id in range(len(topic_evolution_data)):
+        topic_data = topic_evolution_data[topic_id]
+        time_points = topic_data["time_points"]
+        topic_values = topic_data["topic_values"]
+
+        # Create a new figure for the line chart
+        plt.figure(figsize=(10, 6))
+        
+        # Plot the line chart - Graph 2
+        plt.plot(time_points, topic_values, label="Topic " + str(topic_id))
+        
+        # Set labels, title, and legend
+        plt.xlabel("Time")
+        plt.ylabel("Topic Value")
+        plt.title("Topic Evolution Over Time")
+        plt.legend()
+        
+        # Save the chart to a file
+        save_chart("visualizations/topic_evolution_topic" + str(topic_id) + ".png")
+
+    # Create a heatmap to visualize topic relationships - Graph 3
+    # Create a new figure for the heatmap
+    plt.figure(figsize=(10, 8))
+
+    # Create the heatmap using imshow
+    plt.imshow(topic_similarity_matrix, cmap='viridis', aspect='auto')
+
+    # Set labels and title
+    plt.xlabel("Topics")
+    plt.ylabel("Topics")
+    plt.title("Topic Similarity Heatmap")
+
+    # Save the heatmap to a file
+    save_chart("visualizations/topic_similarity_heatmap.png")
+
+# Display Visualizations
+function display_visualizations(validation_results):
+    # Display or save the generated visualizations
+    for visualization in validation_results["visualizations"]:
+        show_visualization(visualization)
+
+# Plot a Line Chart
+function plot_line_chart(x_values, y_values, topic_id):
+    import matplotlib.pyplot as plt
+
+    # Create a new figure for the line chart
+    plt.figure(figsize=(10, 6))
+    
+    # Plot the line chart
+    plt.plot(x_values, y_values, label="Topic " + str(topic_id))
+    
+    # Set labels, title, and legend
+    plt.xlabel("Time")
+    plt.ylabel("Topic Value")
+    plt.title("Topic Evolution Over Time")
+    plt.legend()
+    
+    # Save the chart to a file
+    save_chart("visualizations/topic_evolution_topic" + str(topic_id) + ".png")
+    plt.close()
+
+# Plot a Heatmap
+function plot_heatmap(data):
+    import matplotlib.pyplot as plt
+
+    # Create a new figure for the heatmap
+    plt.figure(figsize=(10, 8))
+
+    # Create the heatmap using imshow
+    plt.imshow(data, cmap='viridis', aspect='auto')
+
+    # Set labels and title
+    plt.xlabel("Topics")
+    plt.ylabel("Topics")
+    plt.title("Topic Similarity Heatmap")
+
+    # Save the heatmap to a file
+    save_chart("visualizations/topic_similarity_heatmap.png")
+    plt.close()
+
+
+
