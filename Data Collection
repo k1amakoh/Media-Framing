@@ -3,7 +3,7 @@ function collect_data(news_sources):
     data = []  # Initialize an empty list to store collected data
 
     for source in news_sources:
-        articles = LexisNexis.search(source)  # Use LexisNexis API to search for articles. Source here refers to the three newspapers I am interested in collecting data from.
+        articles = LexisNexis.search(source)  # Use LexisNexis API to search for articles. The source here refers to the three newspapers - The Wall Street Journal, The New York Times, New York Post.
 
         # Extend the data list with articles from the current source
         data.extend(articles)
