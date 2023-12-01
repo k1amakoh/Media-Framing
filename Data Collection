@@ -1,4 +1,4 @@
-# Data Collection
+#Data Collection
 function collect_data(news_sources):
     data = []  # Initialize an empty list to store collected data
 
