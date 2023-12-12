@@ -1,0 +1,51 @@
+# Import necessary libraries
+import requests
+from bs4 import BeautifulSoup
+from gensim.models import LdaModel
+from gensim.corpora import Dictionary
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+import string
+import pyLDAvis.gensim_models as gensimvis
+import pyLDAvis
+
+# Function to scrape article content from a news article URL
+def scrape_article_content(url):
+    try:
+        # Send a GET request to the URL
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for bad status codes
+
+        # Use BeautifulSoup to parse the HTML content
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Extract the article content
+        article_content = soup.find('div', class_='article-content').get_text()
+        
+        return article_content
+    except requests.exceptions.RequestException as e:
+        # Print an error message if the request fails
+        print(f"Failed to retrieve the page. Error: {e}")
+        return None
+
+# Function to preprocess text
+def preprocess_text(text):
+    # Tokenize
+    tokens = word_tokenize(text.lower())
+
+    # Remove stopwords and punctuation
+    stop_words = set(stopwords.words('english') + list(string.punctuation))
+    tokens = [token for token in tokens if token not in stop_words]
+
+    return tokens
+
+# Test the scrape_article_content function
+article_url = 'https://www.wsj.com/politics/elections/bidens-2024-challenge-taking-down-trumps-poll-numbers-9cb9076e?mod=elections_lead_pos6'
+sample_article_content = scrape_article_content(article_url)
+print("Sample Article Content:")
+print(sample_article_content)
+
+# Test the preprocess_text function
+sample_processed_text = preprocess_text(sample_article_content)
+print("\nSample Processed Text:")
+print(sample_processed_text)
