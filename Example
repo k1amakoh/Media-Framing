@@ -1,0 +1,69 @@
+# Pseudocode for Scraping and Topic Modeling a news article
+
+# Import necessary libraries
+import requests
+from bs4 import BeautifulSoup
+from gensim.models import LdaModel
+from gensim.corpora import Dictionary
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+import string
+import pyLDAvis.gensim_models as gensimvis
+import pyLDAvis
+
+# Function to scrape article content from a news article URL
+def scrape_article_content(url):
+    try:
+        # Send a GET request to the URL
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for bad status codes
+
+        # Use BeautifulSoup to parse the HTML content
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Extract the article content
+        article_content = soup.find('div', class_='article-content').get_text()
+        
+        return article_content
+    except requests.exceptions.RequestException as e:
+        # Print an error message if the request fails
+        print(f"Failed to retrieve the page. Error: {e}")
+        return None
+
+# Function to preprocess text
+def preprocess_text(text):
+    # Tokenize
+    tokens = word_tokenize(text.lower())
+
+    # Remove stopwords and punctuation
+    stop_words = set(stopwords.words('english') + list(string.punctuation))
+    tokens = [token for token in tokens if token not in stop_words]
+
+    return tokens
+
+# URL of the news article
+article_url = 'https://www.wsj.com/politics/elections/bidens-2024-challenge-taking-down-trumps-poll-numbers-9cb9076e?mod=elections_lead_pos6'
+
+# Scrape article content
+article_content = scrape_article_content(article_url)
+
+# Check if article content is retrieved successfully
+if article_content is not None:
+    # Preprocess article content
+    processed_article = preprocess_text(article_content)
+
+    # Create a dictionary and corpus for Topic Modeling
+    dictionary = Dictionary([processed_article])
+    corpus = [dictionary.doc2bow(processed_article)]
+
+    # Train the LDA model
+    lda_model = LdaModel(corpus, num_topics=5, id2word=dictionary, passes=15)
+
+    # Print the topics and their top words
+    topics = lda_model.print_topics(num_words=5)
+    for topic in topics:
+        print(f"Topic {topic[0]}: {topic[1]}")
+
+    # Visualize the topics
+    vis = gensimvis.prepare(lda_model, corpus, dictionary)
+    pyLDAvis.display(vis)
