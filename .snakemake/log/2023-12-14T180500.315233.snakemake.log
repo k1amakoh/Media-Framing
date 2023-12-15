@@ -1,2 +1,0 @@
-SyntaxError in file /Users/ka/Documents/PhDing/Sem/Fall 2023/CMSE/890/Media-Framing/Snakefile, line 27:
-Multiple run/shell/script/notebook/wrapper/template_engine/cwl keywords in rule preprocess_headlines. (Snakefile, line 27)
