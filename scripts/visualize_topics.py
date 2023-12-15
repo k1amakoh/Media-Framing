@@ -19,7 +19,7 @@ from preprocess_headlines import preprocess_text
 
 def visualize_wordcloud(processed_headlines, save_dir):
     """
-    Generate a word cloud from the processed headlines.
+    Generate a word cloud and bar graph from the processed headlines.
 
     Parameters:
     - processed_headlines (list): List of processed headlines.
