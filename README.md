@@ -4,7 +4,7 @@
 The media plays a unique role in shaping public opinion and setting the agenda. This project identifies the tone used to report the 2024 U.S. elections in the Wall Street Journal. It is important to examine how the media report relevant events such as elections. Electorates form their judgments about an election based on the information received from the media. Therefore, the overarching question guiding this project is: "How does the media frame the U.S. Elections?"
 
 #Workflow  
-The workflow is automated using the Snakemake workflow. To activate this automatic process, there is a Snakefile that contains the six-step process of this project (scrape headlines, process headlines, analyze headlines, topic modeling using the Latent Dirichlet Allocation (LDA) technique, testing the functions created and visualizing the model output. 
+The workflow is automated using the Snakemake workflow. To activate this automatic process, there is a Snakefile that contains the six-step process of this project (scrape headlines, process headlines, analyze headlines, topic modeling using the Latent Dirichlet Allocation (LDA) technique, testing the functions created and visualizing the model output). 
 
 Second, the scripts folder contains all the scripts needed to run the Snakefile - analyze_content.py, lda_modeling.py, preprocess_headlines.py, scrape_headlines.py, test_model.py, and visualize_topics.py.
 
