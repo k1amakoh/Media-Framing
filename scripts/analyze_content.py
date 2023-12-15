@@ -10,6 +10,15 @@ from unidecode import unidecode
 
 
 def preprocess_text(text):
+    """
+    Preprocesses the given text by tokenizing, normalizing, and removing non-alphanumeric characters.
+
+    Parameters:
+    - text (str): The input text to be preprocessed.
+
+    Returns:
+    - list: A list of processed tokens.
+    """
     tokens = word_tokenize(text.lower())
 
     # Use unidecode to handle non-ASCII characters and normalize
@@ -22,6 +31,15 @@ def preprocess_text(text):
 
 
 def analyze_content(processed_headlines):
+    """
+    Analyzes the content of processed headlines and generates a DataFrame with word frequencies.
+
+    Parameters:
+    - processed_headlines (list): A list of processed headlines, where each headline is represented as a list of tokens.
+
+    Returns:
+    - pd.DataFrame: A DataFrame with columns 'Word' and 'Frequency' representing word frequencies.
+    """
     processed_text = [
         word for sublist in processed_headlines for word in sublist]
     word_frequency = Counter(processed_text)
@@ -33,6 +51,9 @@ def analyze_content(processed_headlines):
 
 
 def main():
+    """
+    The main function reads processed headlines from a file, performs analysis, and saves the result to a CSV file.
+    """
     # Specify the default file path
     default_filename = 'data/processed_headlines.txt'
 
