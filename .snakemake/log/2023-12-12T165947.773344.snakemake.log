@@ -1,0 +1,2 @@
+SyntaxError in file /Users/ka/Documents/PhDing/Sem/Fall 2023/CMSE/890/Media-Framing/Snakefile, line 16:
+No rule keywords allowed after run/shell/script/notebook/wrapper/template_engine/cwl in rule scrape_headlines. (Snakefile, line 16)
